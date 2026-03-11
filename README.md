@@ -1,6 +1,6 @@
 # Card Management System (CMS)
 
-A full-stack web application for managing credit cards, processing card activation and closure requests, and generating operational reports. Built for Epic Lanka as an internal management tool.
+A full-stack web application for managing credit cards, processing card activation and closure requests, and generating operational reports. Built for Epic Lanka intern assignment.
 
 ---
 
