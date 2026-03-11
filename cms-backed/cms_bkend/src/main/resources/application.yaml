@@ -1,0 +1,64 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:cms_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+
+  sql:
+    init:
+      #mode: always
+      mode: never
+
+server:
+  port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
+    com.epic.cms: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.jdbc: DEBUG
+    org.springframework.transaction: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{36}] - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{36}] - %msg%n"
+  file:
+    name: logs/cms-application.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+      total-size-cap: 1GB
+
+# Card Encryption Configuration
+cms:
+  security:
+    encryption:
+      enabled: ${ENABLE_ENCRYPTION:true}
+      key: "${ENCRYPTION_KEY:9fK3xLm8PqR2sT7vXyZ1w4U6nB8cD0eF}" # MUST match VITE_ENCRYPTION_KEY
+      salt: "${ENCRYPTION_SALT:cms-salt-2024}" # MUST match VITE_ENCRYPTION_SALT
+      algorithm: "AES"
+      transformation: "AES/ECB/PKCS5Padding"
+    payload:
+      transformation: "AES/GCM/NoPadding"
+
+# SpringDoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    try-it-out-enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: none
+    disable-swagger-default-url: true
+    display-request-duration: true
+    default-models-expand-depth: 1
+    default-model-expand-depth: 1
+
+# JWT Configuration
+jwt:
+  secret: "${JWT_SECRET:mySecretKeyForCMSApplication2024}"
+  expiration: "${JWT_EXPIRATION:86400000}" # 24 hours in milliseconds
